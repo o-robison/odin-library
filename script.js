@@ -1,4 +1,5 @@
 const library = [];
+const tbody = document.querySelector("tbody");
 
 function Book(title, author, numPages, isRead) {
     this.title = title;
@@ -14,7 +15,12 @@ function addBookToLibrary(title, author, numPages, isRead) {
 
 function displayLibrary() {
     for (const book of library) {
-        console.log(book);
+        const newRow = tbody.insertRow();
+        for (const prop in book) {
+            const newCell = newRow.insertCell();
+            const newText = document.createTextNode(book[prop]);
+            newCell.appendChild(newText);
+        }
     }
 }
 
