@@ -1,5 +1,16 @@
 const library = [];
 const tbody = document.querySelector("tbody");
+const addBook = document.querySelector("#addBook");
+const dialog = document.querySelector("dialog");
+const dialogClose = document.querySelector("#closeDialog");
+
+addBook.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+dialogClose.addEventListener("click", () => {
+    dialog.close();
+});
 
 function Book(title, author, numPages, isRead) {
     this.title = title;
