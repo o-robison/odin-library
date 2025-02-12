@@ -58,18 +58,19 @@ function displayLibrary() {
         }
         if(!book.isRead){
             const readButtonCell = newRow.insertCell();
-            readButtonCell.innerHTML = `<button class="markRead" data-bookID="${i}">Mark Read</button>`;
+            readButtonCell.innerHTML = `<button class="markRead" data-bookid="${i}">Mark Read</button>`;
         } else {
             const blankCell = newRow.insertCell();
         }
         const removeButtonCell = newRow.insertCell();
-        removeButtonCell.innerHTML = `<button class="removeBook" data-bookId="${i}">Remove</button>`;
+        removeButtonCell.innerHTML = `<button class="removeBook" data-bookid="${i}">Remove</button>`;
     }
 
     const readButtons = document.getElementsByClassName("markRead");
     for (button of readButtons) {
         button.addEventListener("click", (e) => {
-            const readBook = library[e.target.dataset.bookID];
+            console.log(e.target.dataset.bookid);
+            const readBook = library[e.target.dataset.bookid];
             readBook.markRead();
             displayLibrary();
         });
@@ -78,7 +79,8 @@ function displayLibrary() {
     const removeButtons = document.getElementsByClassName("removeBook");
     for (button of removeButtons) {
         button.addEventListener("click", (e) => {
-            removeBookFromLibrary(e.target.dataset.bookId);
+            console.log(e.target.dataset.bookid);
+            removeBookFromLibrary(e.target.dataset.bookid);
             displayLibrary();
         });
     }
