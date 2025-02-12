@@ -31,7 +31,6 @@ function Book(title, author, numPages, isRead) {
     this.author = author;
     this.numPages = numPages;
     this.isRead = isRead;
-    this.isDisplayed = false;
 }
 
 function addBookToLibrary(title, author, numPages, isRead) {
@@ -40,16 +39,17 @@ function addBookToLibrary(title, author, numPages, isRead) {
 }
 
 function displayLibrary() {
-    for (const book of library) {
-        if (!book.isDisplayed) {
-            const newRow = tbody.insertRow();
-            for (const prop in book) {
-                const newCell = newRow.insertCell();
-                const newText = document.createTextNode(book[prop]);
-                newCell.appendChild(newText);
-            }
-            book.isDisplayed = true;
+    tbody.innerHTML = "";
+    for (var i=0; i<library.length; i++) {
+        const book = library[i];
+        const newRow = tbody.insertRow();
+        for (const prop in book) {
+            const newCell = newRow.insertCell();
+            const newText = document.createTextNode(book[prop]);
+            newCell.appendChild(newText);
         }
+        const buttonCell = newRow.insertCell();
+        buttonCell.innerHTML = `<button class="removeBook" data-book-id="${i}">Remove</button>`;
     }
 }
 
