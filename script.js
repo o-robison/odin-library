@@ -33,6 +33,10 @@ function Book(title, author, numPages, isRead) {
     this.isRead = isRead;
 }
 
+Book.prototype.markRead = function() {
+    this.isRead = true;
+}
+
 function addBookToLibrary(title, author, numPages, isRead) {
     const newBook = new Book(title, author, numPages, isRead);
     library.push(newBook);
@@ -40,7 +44,6 @@ function addBookToLibrary(title, author, numPages, isRead) {
 
 function removeBookFromLibrary(bookID) {
     library.splice(bookID, 1);
-    displayLibrary();
 }
 
 function displayLibrary() {
@@ -48,9 +51,9 @@ function displayLibrary() {
     for (var i=0; i<library.length; i++) {
         const book = library[i];
         const newRow = tbody.insertRow();
-        for (const prop in book) {
+        for (const [key, prop] of Object.entries(book)) {
             const newCell = newRow.insertCell();
-            const newText = document.createTextNode(book[prop]);
+            const newText = document.createTextNode(prop);
             newCell.appendChild(newText);
         }
         if(!book.isRead){
@@ -63,10 +66,20 @@ function displayLibrary() {
         removeButtonCell.innerHTML = `<button class="removeBook" data-bookId="${i}">Remove</button>`;
     }
 
+    const readButtons = document.getElementsByClassName("markRead");
+    for (button of readButtons) {
+        button.addEventListener("click", (e) => {
+            const readBook = library[e.target.dataset.bookID];
+            readBook.markRead();
+            displayLibrary();
+        });
+    }
+
     const removeButtons = document.getElementsByClassName("removeBook");
     for (button of removeButtons) {
         button.addEventListener("click", (e) => {
             removeBookFromLibrary(e.target.dataset.bookId);
+            displayLibrary();
         });
     }
 }
