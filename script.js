@@ -53,8 +53,14 @@ function displayLibrary() {
             const newText = document.createTextNode(book[prop]);
             newCell.appendChild(newText);
         }
-        const buttonCell = newRow.insertCell();
-        buttonCell.innerHTML = `<button class="removeBook" data-bookId="${i}">Remove</button>`;
+        if(!book.isRead){
+            const readButtonCell = newRow.insertCell();
+            readButtonCell.innerHTML = `<button class="markRead" data-bookID="${i}">Mark Read</button>`;
+        } else {
+            const blankCell = newRow.insertCell();
+        }
+        const removeButtonCell = newRow.insertCell();
+        removeButtonCell.innerHTML = `<button class="removeBook" data-bookId="${i}">Remove</button>`;
     }
 
     const removeButtons = document.getElementsByClassName("removeBook");
@@ -63,10 +69,6 @@ function displayLibrary() {
             removeBookFromLibrary(e.target.dataset.bookId);
         });
     }
-
-    /* document.querySelector(".removeBook").addEventListener("click", (e) => {
-        removeBookFromLibrary(e.target.dataset.book-id);
-    }); */
 }
 
 addBookToLibrary("One", "one", 3, false);
